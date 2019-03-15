@@ -23,7 +23,7 @@ const FlexWrapper = styled.div`
 export const history = createBrowserHistory();
 
 const store = configureStore(initialState, history);
-console.log(base);
+
 ReactDOM.render(
   <Provider store={store}>
     <Grommet theme={theme}>

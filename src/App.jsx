@@ -5,6 +5,7 @@ import Home from "./containers/home/Home";
 import AddAsset from "./containers/add-asset/AddAsset";
 import { history } from "./index";
 import Notification from "./components/notification/Notification";
+import AssetDetail from "./containers/asset-detail/AssetDetail";
 
 function PrivateRoute({ user, component: Component, ...rest }) {
   return (
@@ -46,8 +47,9 @@ class App extends React.Component {
       <React.Fragment>
         <ConnectedRouter history={history}>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/asset/:id" component={AssetDetail} />
             <Route exact path="/add-asset" component={AddAsset} />
+            <Route exact path="/" component={Home} />
           </Switch>
         </ConnectedRouter>
         <Notification {...notification} onClose={removeNotification} />
