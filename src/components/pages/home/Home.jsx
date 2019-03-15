@@ -8,11 +8,11 @@ class Home extends React.Component {
   }
 
   render() {
-    const { assets } = this.props;
+    const { assets, collect } = this.props;
     return (
       <Box basis="full">
         <TopBar />
-        <Main assets={assets} />
+        <Main collect={collect} assets={assets} />
       </Box>
     );
   }

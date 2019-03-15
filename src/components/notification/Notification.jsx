@@ -20,7 +20,7 @@ const Notification = ({ open, onClose, text, good }) =>
         round="medium"
         elevation="medium"
         pad={{ vertical: "xsmall", horizontal: "small" }}
-        background={good ? "status-ok" : "status-error"}
+        background={good ? "brand" : "status-error"}
       >
         <Box align="center" direction="row" gap="xsmall">
           {good ? <StatusGood /> : <StatusCritical />}

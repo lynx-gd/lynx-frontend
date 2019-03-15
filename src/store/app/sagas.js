@@ -18,7 +18,9 @@ import {
   initialized,
   fetchedAssets,
   ADD_ASSET,
-  initializeWeb3
+  initializeWeb3,
+  COLLECT_DIVIDENDS,
+  createNotification
 } from "./actions";
 import { history } from "../../index";
 
@@ -75,9 +77,29 @@ function* addAsset(api, { payload: { description, value, images, poa } }) {
   }
 }
 
+function* collectDividends() {
+  try {
+    const lynx = yield select(state => state.app.lynx);
+
+    const from = yield select(state => state.app.accounts[0]);
+    const tx = lynx.methods.collectDivdend(from);
+
+    const gas =
+      (yield call(tx.estimateGas, {
+        from
+      })) * 2;
+    console.log(gas)
+    yield call(tx.send, { gas, from });
+    yield put(createNotification("Successfully withdrawn dividend", true));
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 function* appSaga({ apiService }) {
   yield takeEvery(INITIALIZE, initializeApp, apiService);
   yield takeEvery(ADD_ASSET, addAsset, apiService);
+  yield takeEvery(COLLECT_DIVIDENDS, collectDividends);
 }
 
 export default appSaga;

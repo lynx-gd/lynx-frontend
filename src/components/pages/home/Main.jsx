@@ -28,29 +28,29 @@ const ActionButton = styled(Button)`
 `;
 
 const PrimaryButton = styled(ActionButton)`
-  background-image: linear-gradient(81deg, #ec2383, #e63296 25%, #df42ab);;
+  background-image: linear-gradient(81deg, #ec2383, #e63296 25%, #df42ab);
   color: white;
 `;
 
-const RightSide = () => (
+const RightSide = ({ collect }) => (
   <Box direction="row" gap="medium">
     <Link to="/add-asset">
       <PrimaryButton label="New Asset" plain />
     </Link>
-    <ActionButton label="Collect Dividend" plain />
+    <ActionButton onClick={collect} label="Collect Dividend" plain />
   </Box>
 );
 
-const ActionLine = () => (
-  <Box direction="row" pad={{horizontal:"small"}} justify="between">
+const ActionLine = ({ collect }) => (
+  <Box direction="row" pad={{ horizontal: "small" }} justify="between">
     <LeftSide />
-    <RightSide />
+    <RightSide collect={collect} />
   </Box>
 );
 
-const Main = ({ assets }) => (
+const Main = ({ assets, collect }) => (
   <Box pad={{ horizontal: "large", vertical: "large" }}>
-    <ActionLine />
+    <ActionLine collect={collect} />
     <AssetGrid assets={assets} />
   </Box>
 );

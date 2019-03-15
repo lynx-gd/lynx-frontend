@@ -5,11 +5,16 @@ export const REMOVE_NOTIFICATION = "app/REMOVE_NOTIFICATION";
 export const FETCHED_ASSETS = "app/FETCHED_ASSETS";
 export const ADD_ASSET = "app/CREATE_ASSET";
 export const INIT_WEB3 ="app/INIT_WEB3";
+export const COLLECT_DIVIDENDS = "app/COLLECT"
 
 export const initialize = () => ({
   type: INITIALIZE,
   payload: {}
 });
+
+export const collect = () => ({
+  type: COLLECT_DIVIDENDS
+})
 
 export const initialized = isInitialized => ({
   type: INITIALIZED,
