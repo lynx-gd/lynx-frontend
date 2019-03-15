@@ -7,36 +7,67 @@ import {
   fork,
   delay,
   race,
-  all
+  all,
+  select
 } from "redux-saga/effects";
-import { INITIALIZE, initialized, fetchedAssets, ADD_ASSET } from "./actions";
+import Web3 from "web3";
+import Lynx from "../../build/contracts/Lynx.json";
+
+import {
+  INITIALIZE,
+  initialized,
+  fetchedAssets,
+  ADD_ASSET,
+  initializeWeb3
+} from "./actions";
 import { history } from "../../index";
 
 function* initializeApp(api) {
   try {
-    console.log(api);
     const { data } = yield call(api.get, "/api/assets");
     yield put(fetchedAssets(data));
   } catch (e) {
     console.log(e);
     console.log(e.response);
   }
+  const web3 = new Web3(window.web3.currentProvider);
+  const netId = yield call(web3.eth.net.getId);
+  const LynxContract = new web3.eth.Contract(
+    Lynx.abi,
+    Lynx.networks[netId].address
+  );
+  const accounts = yield call(web3.eth.getAccounts);
+  yield put(initializeWeb3({ web3, LynxContract, accounts }));
   yield put(initialized(true));
 }
 
 function* addAsset(api, { payload: { description, value, images, poa } }) {
   try {
+    const web3 = yield select(state => state.app.web3);
+    const lynx = yield select(state => state.app.lynx);
+    const taxLevel = yield call(lynx.methods.taxPercentage().call);
+
+    const tx = lynx.methods.createAsset();
+    const valueWei = web3.utils.toWei(((value * taxLevel) / 1000).toString());
+    const from = yield select(state => state.app.accounts[0]);
+    const gas =
+      (yield call(tx.estimateGas, {
+        value: valueWei,
+        from
+      })) * 2;
+    yield call(tx.send, { gas, value: valueWei, from });
+
     const formData = new FormData();
     //images.push(poa)
     formData.append("value", value);
     formData.append("description", description);
-    formData.append("owner", "xxx");
+    formData.append("owner", from);
     formData.append("physicalAddress", "xxx");
     formData.append("images", images);
     const { data } = yield call(api.post, "/api/asset/", formData, {
       headers: { "Content-Type": "multipart/form-data" }
     });
-    console.log(data);
+
     history.push("/");
   } catch (e) {
     console.log(e);
