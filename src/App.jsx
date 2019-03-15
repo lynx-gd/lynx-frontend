@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { ConnectedRouter } from "react-router-redux";
 import Home from "./containers/home/Home";
-
+import AddAsset from "./containers/add-asset/AddAsset";
 import { history } from "./index";
 import Notification from "./components/notification/Notification";
 
@@ -47,6 +47,7 @@ class App extends React.Component {
         <ConnectedRouter history={history}>
           <Switch>
             <Route exact path="/" component={Home} />
+            <Route exact path="/add-asset" component={AddAsset} />
           </Switch>
         </ConnectedRouter>
         <Notification {...notification} onClose={removeNotification} />

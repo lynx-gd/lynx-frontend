@@ -1,10 +1,10 @@
-import axios from 'axios';
+import axios from "axios";
 
-const API_URL = "http://0.0.0.0:8000"
+const API_URL = "http://localhost:5000/";
 
 var api = axios.create({
-    baseURL:API_URL,
-    timeout:5000
-})
+  baseURL: API_URL,
+  timeout: 50000
+});
 
 export default api;

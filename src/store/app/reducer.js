@@ -1,9 +1,9 @@
 import initialState from "../initialState";
 import {
   INITIALIZED,
-  SET_USER,
   CREATE_NOTIFICATION,
-  REMOVE_NOTIFICATION
+  REMOVE_NOTIFICATION,
+  FETCHED_ASSETS
 } from "./actions";
 
 export default function appReducer(
@@ -23,12 +23,10 @@ export default function appReducer(
         notification: { open: false }
       };
     }
-    case SET_USER: {
+    case FETCHED_ASSETS: {
       return {
         ...state,
-        user: payload.user
-          ? { ...payload.user, isOwner: payload.user.is_owner }
-          : null
+        assets: payload.data
       };
     }
     case INITIALIZED: {

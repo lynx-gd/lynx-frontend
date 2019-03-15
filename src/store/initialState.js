@@ -2,6 +2,7 @@ export default {
   app: {
     isInitialized: false,
     user: null,
-    notification: { open: false }
-  },
+    notification: { open: false },
+    assets: []
+  }
 };

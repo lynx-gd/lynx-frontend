@@ -5,11 +5,13 @@ import "./index.css";
 import { Provider } from "react-redux";
 import styled from "styled-components";
 import { Grommet } from "grommet";
+import {base} from "grommet/themes"
 import { createBrowserHistory } from "history";
 import { configureStore } from "./store";
 import * as serviceWorker from "./serviceWorker";
 import App from "./containers/app/App";
 import initialState from "./store/initialState";
+import theme from "./theme";
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -21,10 +23,10 @@ const FlexWrapper = styled.div`
 export const history = createBrowserHistory();
 
 const store = configureStore(initialState, history);
-
+console.log(base);
 ReactDOM.render(
   <Provider store={store}>
-    <Grommet>
+    <Grommet theme={theme}>
       <FlexWrapper>
         <App />
       </FlexWrapper>
