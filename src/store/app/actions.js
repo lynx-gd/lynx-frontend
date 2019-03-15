@@ -4,6 +4,7 @@ export const CREATE_NOTIFICATION = "app/CREATE_NOTIFICATION";
 export const REMOVE_NOTIFICATION = "app/REMOVE_NOTIFICATION";
 export const FETCHED_ASSETS = "app/FETCHED_ASSETS";
 export const ADD_ASSET = "app/CREATE_ASSET";
+export const INIT_WEB3 ="app/INIT_WEB3";
 
 export const initialize = () => ({
   type: INITIALIZE,
@@ -16,6 +17,11 @@ export const initialized = isInitialized => ({
     isInitialized
   }
 });
+
+export const initializeWeb3 = (web3) =>({
+  type: INIT_WEB3,
+  payload:web3
+})
 
 export const fetchedAssets = assets => ({
   type: FETCHED_ASSETS,

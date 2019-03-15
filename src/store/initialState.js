@@ -3,6 +3,9 @@ export default {
     isInitialized: false,
     user: null,
     notification: { open: false },
-    assets: []
+    assets: [],
+    web3: {},
+    lynx: {},
+    accounts: []
   }
 };
