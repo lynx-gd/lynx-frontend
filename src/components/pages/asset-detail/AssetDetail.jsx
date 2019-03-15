@@ -15,7 +15,7 @@ class AssetDetail extends React.Component {
     return (
       <Box basis="full">
         <TopBar />
-        <Main assets={assets} />
+        <Main assets={assets} id={id} />
       </Box>
     );
   }
